@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.container {
+    padding: 20px;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.add-produto, .show-produto {
+    width: 50rem;
+    padding: 20px;
+    border: 1px solid rgba(185, 185, 185, 0.416);
+    border-radius: 10px;
+}
+
+.show-produto {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
