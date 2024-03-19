@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardápio de Bebidas</title>
+<link rel="stylesheet" href="bebidas.css">
+</head>
+<body>
+<div class="container">
+    <h1>Cardápio de Bebidas</h1>
+
+    <h2>Adicionar Bebida</h2>
+    <form id="add-bebida-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" required>
+        <label for="ml">Volume (ml):</label>
+        <input type="number" id="ml" name="ml" required>
+        <button type="submit">Adicionar Bebida</button>
+    </form>
+
+    <h2>Listagem de Bebidas</h2>
+    <div id="lista-bebidas"></div>
+</div>
+<script src="bebidas.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async function () {
+        const listaBebidas = document.getElementById('lista-bebidas');
+        
+        // Função para carregar a lista de bebidas
+        async function carregarBebidas() {
+            const response = await fetch('/bebidas');
+            const bebidas = await response.json();
+            if (bebidas.length > 0) {
+                listaBebidas.innerHTML = ''; // Limpar o conteúdo atual da lista
+                bebidas.forEach(bebida => {
+                    const bebidaElement = document.createElement('div');
+                    bebidaElement.classList.add('bebida');
+                    bebidaElement.innerHTML = `
+                        <h3>${bebida.nome}</h3>
+                        <p>Preço: R$ ${bebida.preco.toFixed(2)}</p>
+                        <p>Volume (ml): ${bebida.ml}</p>
+                        <button onclick="editarBebida('${bebida._id}')">Editar</button>
+                        <button onclick="excluirBebida('${bebida._id}')">Excluir</button>
+                    `;
+                    listaBebidas.appendChild(bebidaElement);
+                });
+            } else {
+                listaBebidas.innerHTML = '<p>Nenhuma bebida cadastrada.</p>';
+            }
+        }
+
+        // Carregar a lista de bebidas ao carregar a página
+        carregarBebidas();
+    });
+</script>
+</body>
+</html>
