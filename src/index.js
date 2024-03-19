@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 
 require('dotenv').config();
-
+app.use(cors());
 const app = express();
 
- app.use(express.json());
+app.use(express.json());
 
 const Produto = mongoose.model('Produto', { 
     nome: String, 
