@@ -15,7 +15,7 @@ const Produto = mongoose.model('Produto', {
 
 app.get('/', async (req, res) => {
     const produtos = await Produto.find();
-    return res.json(produtos);
+    return res.send(produtos);
 });
   
 app.post('/', async (req,res) => {
@@ -25,13 +25,13 @@ app.post('/', async (req,res) => {
         preco
     });
     await produto.save();
-    return res.json(produto);
+    return res.send(produto);
 });
 
 app.delete('/:id', async (req,res) => {
     const { id } = req.params
     const produto = await Produto.findByIdAndRemove(id);
-    return res.json(produto);
+    return res.send(produto);
 });
 
 app.put('/:id', async (req,res) => {
@@ -42,7 +42,7 @@ app.put('/:id', async (req,res) => {
         preco
     });
 
-    return res.json(produto);
+    return res.send(produto);
 });
 
 const PORT = process.env.PORT || 8080;
