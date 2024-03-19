@@ -6,8 +6,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors())
-app.use(express.json());
+ app.use(express.json());
 
 const Produto = mongoose.model('Produto', { 
     nome: String, 
@@ -16,7 +15,7 @@ const Produto = mongoose.model('Produto', {
 
 app.get('/', async (req, res) => {
     const produtos = await Produto.find();
-    res.send(produtos);
+    return res.json(produtos);
 });
   
 app.post('/', async (req,res) => {
@@ -26,13 +25,13 @@ app.post('/', async (req,res) => {
         preco
     });
     await produto.save();
-    res.send(produto);
+    return res.json(produto);
 });
 
 app.delete('/:id', async (req,res) => {
     const { id } = req.params
     const produto = await Produto.findByIdAndRemove(id);
-    return res.send(produto);
+    return res.json(produto);
 });
 
 app.put('/:id', async (req,res) => {
@@ -43,7 +42,7 @@ app.put('/:id', async (req,res) => {
         preco
     });
 
-    return res.send(produto);
+    return res.json(produto);
 });
 
 const PORT = process.env.PORT || 8080;
