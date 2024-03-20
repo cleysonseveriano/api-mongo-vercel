@@ -8,14 +8,14 @@
         preco:
 */
 
-let tbody = document.getElementById('tbody-prod')
+let tbody = document.getElementById('tbody-prod');
 
-const URL = `https://api-mongo-render.onrender.com/`
+const URL = `https://api-mongo-render.onrender.com/`;
 
 const getProdutos = async () => {
-    const response = await fetch(URL)
-    const data = await response.json()
-    data.forEach ((element, index)=>{
+    const response = await fetch(URL);
+    const data = await response.json();
+    data.forEach((element, index) => {
         tbody.innerHTML += `
         <tr>
             <th scope="row">${index + 1}</th>
@@ -23,11 +23,11 @@ const getProdutos = async () => {
             <td>${element.nome}</td>
             <td>R$ ${element.preco}</td>
             <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" id="1-produto-${element._id}" onclick="pegarId(event)">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-${index}" onclick="pegarId(event)">
                     Editar
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal-${index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -38,17 +38,17 @@ const getProdutos = async () => {
                             <form>
                                 <div class="mb-3">
                                     <label for="inputNome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="nomeUpdate" placeholder="${element.nome}">
+                                    <input type="text" class="form-control" id="nomeUpdate-${index}" placeholder="${element.nome}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputPreco" class="form-label">Preço</label>
-                                    <input type="number" class="form-control" id="precoUpdate" placeholder="${element.preco}">
+                                    <input type="number" class="form-control" id="precoUpdate-${index}" placeholder="${element.preco}">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary" onclick="onclickUpdate()">Salvar</button>
+                            <button type="button" class="btn btn-primary" onclick="onclickUpdate(${index})">Salvar</button>
                         </div>
                     </div>
                     </div>
@@ -56,9 +56,9 @@ const getProdutos = async () => {
                 <button type="button" class="btn btn-danger" id="produto-${element._id}" onclick="onclickDelete(event)">Deletar</button>
             </td>
         </tr>
-        `
-    })
-}
+        `;
+    });
+};
 
 const createProduto = async (url = "", data = {}) => {
     const response = await fetch(url, {
@@ -74,26 +74,21 @@ const createProduto = async (url = "", data = {}) => {
       body: JSON.stringify(data),
     });
     return response.json(); // parses JSON response into native JavaScript objects
-}
+};
 
 function addProduto(event) {
-    event.preventDefault()
-    const produtoNome = document.getElementById('inputNomeAdd')
-    const produtoPreco = document.getElementById('inputPrecoAdd')
-    
-    console.log(produtoNome.value, produtoPreco.value)
+    event.preventDefault();
+    const produtoNome = document.getElementById('inputNomeAdd');
+    const produtoPreco = document.getElementById('inputPrecoAdd');
     
     const data = {
-        nome: `${produtoNome.value}`,
-        preco: Number(`${produtoPreco.value}`)
-    }
-
-    console.log(data)
+        nome: produtoNome.value,
+        preco: Number(produtoPreco.value)
+    };
     
-    createProduto(URL, data).then((data) => {
-        console.log(data);
+    createProduto(URL, data).then(() => {
         window.location.reload(); // Recarregar a página após adicionar um produto
-    })
+    });
 }
 
 const deleteProduto = async (id) => {
@@ -105,9 +100,8 @@ const deleteProduto = async (id) => {
             }
         });
         if (response.ok) {
-            console.log('Produto excluído com sucesso');
             window.location.reload(); // Recarregar a página após excluir um produto
-        } else{
+        } else {
             throw new Error('Erro ao excluir produto');
         }
     } catch (error) {
@@ -122,10 +116,8 @@ const onclickDelete = (event) => {
         console.error('ID do botão não encontrado.');
         return;
     }
-    console.log(idDoBotao)
     const idDoProduto = idDoBotao.split('-')[1];
-    console.log('ID do produto para deletar:', idDoProduto);
-    deleteProduto(idDoProduto)    
+    deleteProduto(idDoProduto);
 };
 
 const pegarId = (event) => {
@@ -136,29 +128,24 @@ const pegarId = (event) => {
         return;
     }
     const idDoProduto = idDoBotao.split('-')[2];
-    console.log('ID do produto para atualizar:', idDoProduto);
-    idPegado = idDoProduto;
-    console.log(idPegado);
     return idDoProduto;
 };
 
-let idPegado = '';
-
-const onclickUpdate = () => {
-    const nomeUpdate = document.getElementById('nomeUpdate')
-    const precoUpdate = document.getElementById('precoUpdate')
+const onclickUpdate = (index) => {
+    const nomeUpdate = document.getElementById(`nomeUpdate-${index}`).value;
+    const precoUpdate = document.getElementById(`precoUpdate-${index}`).value;
 
     const data = {
-        nome: `${nomeUpdate.value}`,
-        preco: Number(`${precoUpdate.value}`)
-    }
+        nome: nomeUpdate,
+        preco: Number(precoUpdate)
+    };
     
-    updateProduto(idPegado, data)
-}
+    updateProduto(index, data);
+};
 
-const updateProduto = async (id, data) => {
+const updateProduto = async (index, data) => {
     try {
-        const response = await fetch(`https://api-mongo-render.onrender.com/${id}`, {
+        const response = await fetch(`${URL}/${index}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -166,12 +153,10 @@ const updateProduto = async (id, data) => {
             body: JSON.stringify(data)
         });
         if (response.ok) {
-            console.log('Produto atualizado com sucesso');
             window.location.reload(); // Recarregar a página após atualizar um produto
         } else {
             throw new Error('Erro ao atualizar produto');
         }
-        console.log('Produto atualizado com sucesso');
     } catch (error) {
         console.error('Erro ao atualizar produto:', error.message);
     }
