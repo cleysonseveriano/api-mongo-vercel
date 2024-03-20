@@ -1,60 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardápio de Bebidas</title>
-<link rel="stylesheet" href="bebidas.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="frontend/assets/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" ></script>
+    <title>Cardápio de Bebidas</title>
 </head>
 <body>
-<div class="container">
-    <h1>Cardápio de Bebidas</h1>
-
-    <h2>Adicionar Bebida</h2>
-    <form id="add-bebida-form">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" required>
-        <label for="ml">Volume (ml):</label>
-        <input type="number" id="ml" name="ml" required>
-        <button type="submit">Adicionar Bebida</button>
-    </form>
-
-    <h2>Listagem de Bebidas</h2>
-    <div id="lista-bebidas"></div>
-</div>
-<script src="bebidas.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', async function () {
-        const listaBebidas = document.getElementById('lista-bebidas');
-        
-        // Função para carregar a lista de bebidas
-        async function carregarBebidas() {
-            const response = await fetch('/bebidas');
-            const bebidas = await response.json();
-            if (bebidas.length > 0) {
-                listaBebidas.innerHTML = ''; // Limpar o conteúdo atual da lista
-                bebidas.forEach(bebida => {
-                    const bebidaElement = document.createElement('div');
-                    bebidaElement.classList.add('bebida');
-                    bebidaElement.innerHTML = `
-                        <h3>${bebida.nome}</h3>
-                        <p>Preço: R$ ${bebida.preco.toFixed(2)}</p>
-                        <p>Volume (ml): ${bebida.ml}</p>
-                        <button onclick="editarBebida('${bebida._id}')">Editar</button>
-                        <button onclick="excluirBebida('${bebida._id}')">Excluir</button>
-                    `;
-                    listaBebidas.appendChild(bebidaElement);
-                });
-            } else {
-                listaBebidas.innerHTML = '<p>Nenhuma bebida cadastrada.</p>';
-            }
-        }
-
-        // Carregar a lista de bebidas ao carregar a página
-        carregarBebidas();
-    });
-</script>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" >
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Cardápio</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.html">Produtos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="bebidas.html">Bebidas</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div class="container">
+        <div class="add-bebida">
+            <h2>Adicionar nova bebida</h2>
+            <form onsubmit="addBebida(event)">
+                <div class="mb-3">
+                  <label for="inputNomeAdd" class="form-label">Nome</label>
+                  <input type="text" class="form-control" id="inputNomeAdd">
+                </div>
+                <div class="mb-3">
+                  <label for="inputPrecoAdd" class="form-label">Preço</label>
+                  <input type="number" class="form-control" id="inputPrecoAdd">
+                </div>
+                <div class="mb-3">
+                  <label for="inputMlAdd" class="form-label">Volume (ml)</label>
+                  <input type="number" class="form-control" id="inputMlAdd">
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Bebida</button>
+            </form>
+        </div>
+        <div class="show-bebida">
+            <h2>Bebidas</h2>
+            <div id="lista-bebidas"></div>
+        </div>
+    </div>
+    <script src="frontend/script/bebidas.js"></script>
 </body>
 </html>
