@@ -28,7 +28,15 @@ const getBebidas = async () => {
     }
 }
 
-const criarBebida = async (data) => {
+const criarBebida = async () => {
+    const nome = inputNomeAdd.value
+    const preco = inputPrecoAdd.value
+    const ml = inputMlAdd.value
+    const data = {
+        nome: nome,
+        preco: preco,
+        ml: ml
+    }
     try {
         const response = await fetch(URL_BEBIDAS, {
             method: 'POST',
@@ -39,7 +47,8 @@ const criarBebida = async (data) => {
         });
         if (response.ok) {
             console.log('Bebida adicionada com sucesso');
-            getBebidas(); // Recarregar a lista de bebidas após adicionar uma nova
+            // getBebidas(); // Recarregar a lista de bebidas após adicionar uma nova
+            window.location.reload()
         } else {
             throw new Error('Erro ao adicionar bebida');
         }

@@ -32,7 +32,7 @@
     <div class="container">
         <div class="add-bebida">
             <h2>Adicionar nova bebida</h2>
-            <form onsubmit="addBebida(event)">
+            <form onsubmit="return false">
                 <div class="mb-3">
                   <label for="inputNomeAdd" class="form-label">Nome</label>
                   <input type="text" class="form-control" id="inputNomeAdd">
@@ -45,7 +45,7 @@
                   <label for="inputMlAdd" class="form-label">Volume (ml)</label>
                   <input type="number" class="form-control" id="inputMlAdd">
                 </div>
-                <button type="submit" class="btn btn-primary">Adicionar Bebida</button>
+                <button type="button" class="btn btn-primary" onclick="criarBebida()">Adicionar Bebida</button>
             </form>
         </div>
         <div class="show-bebida">
@@ -66,6 +66,7 @@
             </table>
         </div>
     </div>
-    <script src="frontend/script/script-bebidas.js"></script>
+    <script src="../script/script-bebidas.js
+    "></script>
 </body>
 </html>
