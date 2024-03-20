@@ -1,15 +1,27 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    box-sizing: border-box;
+    border: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-decoration: none;
+    color: black;
+    list-style: none ;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f7f7f7; /* Adicionado para consistência com a página index */
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    max-width: 800px; /* Ajustado para se alinhar com a largura do conteúdo */
+    margin: 20px auto; /* Centralizado na página */
+    background-color: #fff; /* Fundo branco */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,6 +35,7 @@ form {
 }
 
 label {
+    display: block;
     margin-bottom: 5px;
 }
 
@@ -34,14 +47,14 @@ input[type="text"], input[type="number"], button {
 button {
     padding: 8px 12px;
     cursor: pointer;
-    background-color: #007bff; 
+    background-color: #007bff; /* Cor azul primária */
     color: white;
     border: none;
     border-radius: 4px;
 }
 
 button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3; /* Cor azul mais escura ao passar o mouse */
 }
 
 ul {
@@ -57,20 +70,20 @@ li {
 }
 
 li:hover {
-    background-color: #e6e6e6; 
+    background-color: #e6e6e6;
 }
 
 .bebida {
-    background-color: #fff; 
-    border: 1px solid rgba(0, 0, 0, 0.125); 
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 20px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .bebida:hover {
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
 }
 
 .bebida h3 {
@@ -82,16 +95,16 @@ li:hover {
 }
 
 .bebida button {
-    width: 100%; 
+    width: 100%;
     padding: 8px 12px;
     margin-top: 10px;
     cursor: pointer;
-    background-color: #007bff; 
+    background-color: #007bff; /* Cor azul primária */
     color: white;
     border: none;
     border-radius: 4px;
 }
 
 .bebida button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3; /* Cor azul mais escura ao passar o mouse */
 }
