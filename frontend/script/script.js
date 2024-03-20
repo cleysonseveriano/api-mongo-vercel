@@ -92,6 +92,7 @@ function addProduto(event) {
     
     createProduto(URL, data).then((data) => {
         console.log(data);
+        window.location.reload(); // Recarregar a página após adicionar um produto
     })
 }
 
@@ -105,7 +106,7 @@ const deleteProduto = async (id) => {
         });
         if (response.ok) {
             console.log('Produto excluído com sucesso');
-            window.location.reload()
+            window.location.reload(); // Recarregar a página após excluir um produto
         } else{
             throw new Error('Erro ao excluir produto');
         }
@@ -127,22 +128,21 @@ const onclickDelete = (event) => {
     deleteProduto(idDoProduto)    
 };
 
-const pegarId = () => {
+const pegarId = (event) => {
     const btn = event.currentTarget;
     const idDoBotao = btn.id;
-    console.log(btn)
     if (!idDoBotao) {
         console.error('ID do botão não encontrado.');
         return;
     }
     const idDoProduto = idDoBotao.split('-')[2];
     console.log('ID do produto para atualizar:', idDoProduto);
-    idPegado = idDoProduto
-    console.log(idPegado)
+    idPegado = idDoProduto;
+    console.log(idPegado);
     return idDoProduto;
-}
+};
 
-let idPegado = ''
+let idPegado = '';
 
 const onclickUpdate = () => {
     const nomeUpdate = document.getElementById('nomeUpdate')
@@ -167,7 +167,7 @@ const updateProduto = async (id, data) => {
         });
         if (response.ok) {
             console.log('Produto atualizado com sucesso');
-            window.location.reload();
+            window.location.reload(); // Recarregar a página após atualizar um produto
         } else {
             throw new Error('Erro ao atualizar produto');
         }
@@ -177,4 +177,4 @@ const updateProduto = async (id, data) => {
     }
 };
 
-getProdutos()
+getProdutos();
