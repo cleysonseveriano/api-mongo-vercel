@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
+
 require('dotenv').config();
 
 app.use(cors());
@@ -21,7 +22,7 @@ app.get('/bebidas', async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: 'Erro ao buscar bebidas' });
     }
-});
+})
   
 app.post('/bebidas', async (req,res) => {
     const { nome, preco, ml } = req.body;
@@ -66,17 +67,5 @@ app.put('/bebidas/:id', async (req,res) => {
         return res.json(bebida);
     } catch (error) {
         return res.status(500).json({ error: 'Erro ao atualizar bebida' });
-    }
-});
-
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, async () => {
-    try {
-        const MONGO_URL = process.env.MONGOOSE_CONNECTION;
-        await mongoose.connect(MONGO_URL);     
-        console.log(`Conexão bem estabelecida com sucesso`);
-    } catch (error) {
-        console.error('Erro ao iniciar o servidor: ', error);
     }
 });
