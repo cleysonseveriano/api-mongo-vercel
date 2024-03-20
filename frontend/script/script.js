@@ -23,7 +23,7 @@ const getProdutos = async () => {
             <td>${element.nome}</td>
             <td>R$ ${element.preco}</td>
             <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-${index}" onclick="pegarId(event)">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-${index}" id="${index}-produto-${element._id}" onclick="pegarId(event)">
                     Editar
                 </button>
                 <!-- Modal -->
@@ -120,6 +120,8 @@ const onclickDelete = (event) => {
     deleteProduto(idDoProduto);
 };
 
+let idProduto = ''
+
 const pegarId = (event) => {
     const btn = event.currentTarget;
     const idDoBotao = btn.id;
@@ -128,6 +130,8 @@ const pegarId = (event) => {
         return;
     }
     const idDoProduto = idDoBotao.split('-')[2];
+    idProduto = idDoProduto
+    console.log(idDoProduto)    
     return idDoProduto;
 };
 
@@ -143,9 +147,10 @@ const onclickUpdate = (index) => {
     updateProduto(index, data);
 };
 
+
 const updateProduto = async (index, data) => {
     try {
-        const response = await fetch(`${URL}/${index}`, {
+        const response = await fetch(`${URL}${idProduto}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -153,7 +158,7 @@ const updateProduto = async (index, data) => {
             body: JSON.stringify(data)
         });
         if (response.ok) {
-            window.location.reload(); // Recarregar a página após atualizar um produto
+            window.location.reload();
         } else {
             throw new Error('Erro ao atualizar produto');
         }
