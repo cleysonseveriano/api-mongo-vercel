@@ -15,15 +15,15 @@ const URL = `https://api-mongo-render.onrender.com/`
 const getProdutos = async () => {
     const response = await fetch(URL)
     const data = await response.json()
-    data.forEach ( (element, index) => {
+    data.forEach ((element, index)=>{
         tbody.innerHTML += `
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">${index + 1}</th>
             <td>${element._id}</td>
             <td>${element.nome}</td>
             <td>R$ ${element.preco}</td>
             <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" id="1-produto-${element._id}" onclick="pegarId()">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" id="1-produto-${element._id}" onclick="pegarId(event)">
                     Editar
                 </button>
                 <!-- Modal -->
@@ -103,10 +103,12 @@ const deleteProduto = async (id) => {
                 'Content-Type': 'application/json'
             }
         });
-        if (!response.ok) {
+        if (response.ok) {
+            console.log('Produto excluído com sucesso');
+            window.location.reload()
+        } else{
             throw new Error('Erro ao excluir produto');
         }
-        console.log('Produto excluído com sucesso');
     } catch (error) {
         console.error('Erro ao excluir produto:', error.message);
     }
@@ -122,9 +124,7 @@ const onclickDelete = (event) => {
     console.log(idDoBotao)
     const idDoProduto = idDoBotao.split('-')[1];
     console.log('ID do produto para deletar:', idDoProduto);
-    deleteProduto(idDoProduto)
-    window.location.reload()
-    
+    deleteProduto(idDoProduto)    
 };
 
 const pegarId = () => {
@@ -154,7 +154,6 @@ const onclickUpdate = () => {
     }
     
     updateProduto(idPegado, data)
-    window.location.reload()
 }
 
 const updateProduto = async (id, data) => {
@@ -166,7 +165,10 @@ const updateProduto = async (id, data) => {
             },
             body: JSON.stringify(data)
         });
-        if (!response.ok) {
+        if (response.ok) {
+            console.log('Produto atualizado com sucesso');
+            window.location.reload();
+        } else {
             throw new Error('Erro ao atualizar produto');
         }
         console.log('Produto atualizado com sucesso');
