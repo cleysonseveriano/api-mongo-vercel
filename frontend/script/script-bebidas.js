@@ -54,14 +54,6 @@ const getBebidas = async () => {
                             <button type="button" class="btn btn-danger" id="produto-${bebida._id}" onclick="excluirBebida('${bebida._id}')">Deletar</button>
                         </td>
                     </tr>
-                
-                        <div class="bebida">
-                            <h3>${bebida.nome}</h3>
-                            <p>Preço: R$ ${bebida.preco.toFixed(2)}</p>
-                            <p>Volume (ml): ${bebida.ml}</p>
-                            <button onclick="editarBebida('${bebida._id}')">Editar</button>
-                            <button onclick="excluirBebida('${bebida._id}')">Excluir</button>
-                        </div>
         `;
             });
         } else {
