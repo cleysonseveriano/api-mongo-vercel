@@ -100,7 +100,8 @@ const excluirBebida = async (id) => {
         });
         if (response.ok) {
             console.log('Bebida excluída com sucesso');
-            getBebidas(); // Recarregar a lista de bebidas após excluir uma
+            // getBebidas(); // Recarregar a lista de bebidas após excluir uma
+            window.location.reload()
         } else {
             throw new Error('Erro ao excluir bebida');
         }
