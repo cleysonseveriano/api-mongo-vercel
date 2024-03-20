@@ -59,7 +59,7 @@ app.get('/bebidas', async (req, res) => {
         const bebidas = await Bebida.find();
         return res.json(bebidas);
     } catch (error) {
-        return res.status(500).json({ error: 'Erro ao buscar bebidas procuradas' });
+        return res.status(500).json({ error: 'Erro ao buscar bebidas' });
     }
 })
   
