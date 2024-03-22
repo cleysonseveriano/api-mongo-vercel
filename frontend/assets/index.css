@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-decoration: none;
+    color: black;
+    list-style: none ;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.container {
+    margin-top: 10rem;
+    border: 1px solid rgba(185, 185, 185, 0.416);
+    border-radius: 12px;
+    padding: 3rem;
+}
